@@ -1,0 +1,23 @@
+version: '3'
+services:
+  deno:
+    container_name: deno
+    build: ./debian-deno/
+    tty: true
+    networks:
+      deno_net:
+        aliases:
+          - deno
+        ipv4_address: 172.30.0.2
+    ports:
+      - 80:80
+    volumes:
+      - ./sandbox:/sandbox
+
+networks:
+  deno_net:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.30.0.0/24
